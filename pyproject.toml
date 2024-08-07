@@ -1,0 +1,93 @@
+[build-system]
+requires = ["setuptools>=61.0"]
+build-backend = "setuptools.build_meta"
+
+# from https://peps.python.org/pep-0621/
+[project]
+name = "gsrb"
+version = "0.1.0"
+description = "GUI Script Repair with Backtrace"
+readme = "README.md"
+requires-python = ">=3.10"
+license = { file = "LICENSE" }
+authors = [{ name = "Zhengxuan Qian", email = "zhengxuanqian@smail.nju.edu.cn" }]
+maintainers = []
+keywords = []
+classifiers = [
+    "Programming Language :: Python :: 3",
+    "Operating System :: OS Independent",
+]
+
+dependencies = [
+    "uiautomator2~=2.16.23",
+    "Pillow~=10.1.0",
+    "Levenshtein~=0.21.0",
+    "openai~=0.28.1",
+    "typer~=0.9.0"
+]
+
+[project.optional-dependencies]
+test = [
+    "pytest >= 7.0.0",
+    "pytest-cov",
+    "pytest-mock"
+]
+lint = [
+    "black==22.12.0",
+    "isort==5.12.0",
+    "flake8==6.0.0",
+    "mypy >= 1.0"
+]
+
+[project.urls]
+Homepage = "https://example.com"
+Source = "https://github.com/example/example"
+
+[project.scripts]
+ask = "gsrb.cli.ask:main"
+batch-record = "gsrb.cli.batch_record:main"
+batch-repair = "gsrb.cli.batch_repair:main"
+count = "gsrb.cli.count:main"
+debug = "gsrb.cli.debug:main"
+diff-layout = "gsrb.cli.diff_layout:main"
+dump = "gsrb.cli.dump:main"
+record = "gsrb.cli.record:main"
+repair = "gsrb.cli.repair:main"
+show = "gsrb.cli.show:main"
+gsrb = "gsrb.cli.gsrb:main"
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.pytest.ini_options]
+addopts = [
+    "--import-mode=importlib",
+    "--doctest-modules",
+    "--cov=src",
+    "--cov-report=xml"
+]
+
+[tool.isort]
+profile = "black"
+
+[tool.mypy]
+# strict = true
+namespace_packages = false
+disallow_any_generics = true
+disallow_untyped_defs = true
+no_implicit_optional = true
+check_untyped_defs = true
+warn_return_any = true
+warn_unused_ignores = true
+
+[[tool.mypy.overrides]]
+module = [
+    "uiautomator2"
+]
+ignore_missing_imports = true
+
+[[tool.mypy.overrides]]
+module = [
+    "xlsxwriter"
+]
+ignore_missing_imports = true

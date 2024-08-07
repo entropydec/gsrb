@@ -1,0 +1,7 @@
+import uiautomator2 as u2
+
+if __name__ == "__main__":
+    $device_name = u2.connect($device_serial)
+    $device_name.app_start($package)
+$content
+    $device_name.app_stop($package)
